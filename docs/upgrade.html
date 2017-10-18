@@ -1,0 +1,409 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Data Versioning (Upgrades) · Amphora</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-accordion/accordion.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-bootstrap-callout/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="GLOSSARY.html" />
+    
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Read Me
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="lifecycle/startup.html">
+            
+                <a href="lifecycle/startup.html">
+            
+                    
+                    On Startup
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="lifecycle/startup/instantiation.html">
+            
+                <a href="lifecycle/startup/instantiation.html">
+            
+                    
+                    Instantiation Arguments
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="lifecycle/startup/bootstrap.html">
+            
+                <a href="lifecycle/startup/bootstrap.html">
+            
+                    
+                    Bootstrapping
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    Basics
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="basics/publishing.html">
+            
+                <a href="basics/publishing.html">
+            
+                    
+                    Publishing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                    Advanced
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.4.1" data-path="upgrade.html">
+            
+                <a href="upgrade.html">
+            
+                    
+                    Data Versioning (Upgrades)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="GLOSSARY.html">
+            
+                <a href="GLOSSARY.html">
+            
+                    
+                    Glossary
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Data Versioning (Upgrades)</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="data-versioning">Data Versioning</h1>
+<p>Data versioning is a feature of Amphora that aims to address the problem of iterating on component data. As properties are added or removed from a component&apos;s data it&apos;s easy to reach a point where data that is already in the database does not meet the requirements/expectations of a template or <code>model.js</code>. Data versioning allows you to track which &quot;version&quot; of data your component is on and then bring old data up to that current version, increasing the rate at which new features can be developed around a component.</p>
+<hr>
+<h3 id="upgrading-component-data">&quot;Upgrading&quot; Component Data</h3>
+<p>Components follow a very defined path when they&apos;re requested. First the data is retrieved from the database and then it&apos;s passed to a <code>model.js</code> <code>render</code> function for the component (if one exists). After that the component data proceeds to the final output destination, whether that&apos;s to be templated into HTML or to be consumed as JSON. Upgrades take place immediately after a component&apos;s data is retrieved from the database, making the modified data accessible the <code>model.js</code>.</p>
+<p><img src="images/upgrade_flow.png" alt="Upgrade data flow"></p>
+<hr>
+<h3 id="how-to-upgrade">How To Upgrade</h3>
+<p>Upgrading is easy! You only need two things:</p>
+<ul>
+<li>A <code>_version</code> property set to a number in your component&apos;s <code>schema.yaml</code></li>
+<li>An <code>upgrade.js</code> file in your component&apos;s directory</li>
+</ul>
+<h4 id="version-property"><code>\_version</code> Property</h4>
+<p>The <code>_version</code> property is how upgrades are tracked by Amphora. Whenever a component&apos;s data is requested the <code>_version</code> property in your component&apos;s data is checked against the <code>_version</code> property in your component&apos;s <code>schema</code> file. If the two are not the same value, the component&apos;s data will be run through whatever upgrades are specified in your <code>upgrade.js</code> file. Things to note about this property:</p>
+<ul>
+<li>You should never modify the <code>_version</code> property in your component, Amphora will manage this for you</li>
+<li>The property format <code>&lt;MAJOR&gt;.&lt;MINOR&gt;</code> (i.e. <code>1.6</code>). This allows you to specify &quot;breaking&quot; changes in your component data (usually removing a property)</li>
+</ul>
+<h4 id="upgradejs-file">Upgrade.js file</h4>
+<p>If the schema specifies <em>what</em> version a component&apos;s data should be at, an <code>upgrade.js</code> file describes <em>how</em> to get to that version. An <code>upgrade.js</code> should export a function for each version number that of schema that you have. For example, if you&apos;re writing your first upgrade for a component and want to write an upgrade to <code>1.0</code>, your <code>upgrade.js</code> would have the following:</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports[<span class="hljs-string">&apos;1.0&apos;</span>] = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">//...upgrade goes here</span>
+};
+</code></pre>
+<p>For every version that you increment, just add a corresponding function and they&apos;ll be run! But what about the structure of the function? The function signature for an <code>upgrade.js</code> file is the exact same as a <code>model.js</code> file. The functions will receive the same arguments and should return a Javascript Object or a <code>Promise</code> that resolves an Object.</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports[<span class="hljs-string">&apos;1.0&apos;</span>] = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">uri, data, locals</span>) </span>{
+  <span class="hljs-comment">// Modify your `data` here and return a Promise or JS Object</span>
+};
+</code></pre>
+<h3 id="faq">FAQ</h3>
+<div class="accordion accordionClose"><div class="accordionButton"><div class="accordionTitle">So all the upgrades for a component run every time a component is requested? </div><div class="accordionSpinnerBox"><div class="accordionSpinner"></div></div></div><div class="accordionContent">
+<p>An upgrade is only run <strong>once</strong> per component instance. The <code>_version</code> property is used to track the version of the data and then upgrades are reduced through, make sure that a upgrades are run in ascending order.</p>
+<p>For example, if your component data is on version <code>1.0</code> and your schema version is at <code>1.6</code>, Amphora will run your data through each upgrade (from <code>1.1</code> to <code>1.6</code>) and return the data expected for <code>1.6</code>. In this way, even the oldest data in your system is up-to-date with <code>model.js</code> and template expectations.</p>
+</div></div>
+<div class="accordion accordionClose"><div class="accordionButton"><div class="accordionTitle"> Why not just use an external script or render function? </div><div class="accordionSpinnerBox"><div class="accordionSpinner"></div></div></div><div class="accordionContent">
+<p>Transforming data in a <code>model.js</code> <code>render</code> function will lead to bloat of the file which will require more development time as devs must keep all of the possible permutations of the data in mind when making changes.</p>
+<p>Using an external script will require careful coordination when releasing new features and updating data.</p>
+<p>Data versioning allows you iterate and release without fear that your data needs to undergo its own migration.</p>
+</div></div>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                
+                <a href="GLOSSARY.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Glossary">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Data Versioning (Upgrades)","level":"1.4.1","depth":2,"next":{"title":"Glossary","level":"1.5","depth":1,"path":"docs/GLOSSARY.md","ref":"docs/GLOSSARY.md","articles":[]},"previous":{"title":"Advanced","level":"1.4","depth":1,"ref":"","articles":[{"title":"Data Versioning (Upgrades)","level":"1.4.1","depth":2,"path":"docs/upgrade.md","ref":"docs/upgrade.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["github","anchorjs","accordion","bootstrap-callout"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/clay/amphora/"},"accordion":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"bootstrap-callout":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Amphora","gitbook":"3.2.3"},"file":{"path":"docs/upgrade.md","mtime":"2017-10-05T21:22:17.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-10-18T21:33:04.610Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/3.1.1/anchor.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-anchorjs/anchor-style.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-accordion/accordionSelector.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
